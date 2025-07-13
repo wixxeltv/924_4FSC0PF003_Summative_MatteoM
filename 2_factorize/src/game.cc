@@ -81,7 +81,7 @@ void Game::HandleEvents(){
 void Game::HandleKeyPress(sf::Keyboard::Key key){
     switch (key) {
         case sf::Keyboard::Key::Space:
-            sprite_manager_.AddRandomSprite();
+            sprite_manager_.AddSpriteAtRandomPosition();
             break;
 
         case sf::Keyboard::Key::C:

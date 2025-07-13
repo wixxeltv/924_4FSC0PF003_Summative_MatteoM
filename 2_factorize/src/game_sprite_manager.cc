@@ -15,7 +15,7 @@ GameSpriteManager::GameSpriteManager(const sf::Vector2u winSize)
 }
 
 
-void GameSpriteManager::AddRandomSprite() {
+void GameSpriteManager::AddSpriteAtRandomPosition() {
     AddSprite({
             pos_dist_(gen_) * static_cast<float>(window_size_.x - 100) + 50,
             pos_dist_(gen_) * static_cast<float>(window_size_.y - 100) + 50

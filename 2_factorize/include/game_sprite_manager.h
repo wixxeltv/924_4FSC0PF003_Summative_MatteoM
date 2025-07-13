@@ -24,7 +24,7 @@ private:
 public:
     explicit GameSpriteManager(sf::Vector2u winSize);
 
-    void AddRandomSprite();
+    void AddSpriteAtRandomPosition();
     void AddSpriteAtMouse(sf::Vector2f mousePos);
 
     void Update(float deltaTime);

@@ -1,0 +1,26 @@
+﻿
+option(ENABLE_TESTING "Enable gtest" OFF)
+
+if (ENABLE_TESTING)
+    list(APPEND VCPKG_MANIFEST_FEATURES "testing")
+endif (ENABLE_TESTING)
+
+# Packages : external libraries managed by
+file(GLOB_RECURSE SRC_FILES src/*.cc)
+file(GLOB_RECURSE HEADER_FILES include/*.h)
+
+add_executable(1_Tests ${SRC_FILES} ${HEADER_FILES})
+target_include_directories(1_Tests PRIVATE include/)
+
+target_link_libraries(1_Tests PUBLIC SFML::System SFML::Graphics SFML::Window)
+
+if (ENABLE_TESTING)
+
+    message("testing enable")
+
+    file(GLOB_RECURSE TEST_FILES tests/*.cc)
+    add_executable(tests ${TEST_FILES})
+    target_link_libraries(tests PRIVATE GTest::gtest GTest::gtest_main)
+
+endif (ENABLE_TESTING)
+
