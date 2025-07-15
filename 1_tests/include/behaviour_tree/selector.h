@@ -15,15 +15,19 @@ inline Status Selector::Tick() {
   // RETURN FAILURE IF ALL CHILDREN RETURN FAILURE
   // RETURN SUCCESS IF ANY CHILDREN RETURN SUCCESS
   // RETURN RUNNING IF ANY CHILDREN RETURN RUNNING
+  if (children_.empty()) {
+    return Status::kFailure;
+  }
 
-  do {
+  while (current_child_ < children_.size())
+  {
     Status status = children_[current_child_]->Tick();
-    if (status != Status::kFailure) {
+    if (status == Status::kFailure) {
       current_child_++;
     }else {
       return status;
     }
-  }while (current_child_ < children_.size());
+  }
 
   Reset();
   return Status::kFailure;

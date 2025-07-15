@@ -15,17 +15,20 @@ inline Status NoLoop::Tick() {
   // RETURN SUCCESS IF ALL CHILDREN RETURN SUCCESS
   // RETURN FAILURE IF ANY CHILDREN RETURN FAILURE
   // RETURN RUNNING IF ANY CHILDREN RETURN RUNNING
+  if (children_.empty()) {
+    return Status::kFailure;
+  }
 
-  do {
+  while (current_child_ < children_.size())
+  {
     Status status = children_[current_child_]->Tick();
-    if (status != Status::kSuccess) {
+    if (status == Status::kSuccess) {
       current_child_++;
     }else {
       return status;
     }
-  }while (current_child_ < children_.size());
+  };
 
-  Reset();
   return Status::kSuccess;
 
 }

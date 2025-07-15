@@ -1,23 +1,78 @@
 ﻿#include <gtest/gtest.h>
 #include "behaviour_tree/behaviour_tree.h"
 
-// Useless test : Workflow validation
-TEST(BehaviourTree, Intro) {
-  SUCCEED();
+using namespace behaviour_tree;
+
+// Helpers ---------------------------------------------------------------------------------------
+Status simple_action (const bool check_conditions, const bool action_executed){
+  Status status;
+
+  if (check_conditions) {
+    if (action_executed) {
+      status = Status::kSuccess;
+    }else {
+      status = Status::kRunning;
+    }
+  }else {
+    status = Status::kFailure;
+  }
+
+  std::cout << "Status : " << check_conditions << " : " << action_executed << " : " << status_to_str(status) << std::endl;
+  return status;
+};
+
+auto AlwaysSuccess = [](){return Status::kSuccess;};
+auto AlwaysRunning = [](){return Status::kRunning;};
+auto AlwaysFailed = [](){return Status::kFailure;};
+
+TEST(BehaviourTree, leaf_basics) {
+
+  Leaf leaf_q(AlwaysSuccess);
+  EXPECT_EQ(leaf_q.Tick(), Status::kSuccess);
+
+  Leaf leaf_b(AlwaysRunning);
+  EXPECT_EQ(leaf_b.Tick(), Status::kRunning);
+
+  Leaf leaf_c(AlwaysFailed);
+  EXPECT_EQ(leaf_c.Tick(), Status::kFailure);
+
 }
 
-TEST(BehaviourTree, Leaf_Basics) {
-  auto AlwaysSuccess = [](){return behaviour_tree::Status::kSuccess;};
-  auto AlwaysRunning = [](){return behaviour_tree::Status::kRunning;};
-  auto AlwaysFailed = [](){return behaviour_tree::Status::kFailure;};
+TEST(BehaviourTree, no_loop_empty) {
+  NoLoop no_loop;
 
-  behaviour_tree::Leaf leaf_q(AlwaysSuccess);
-  EXPECT_EQ(leaf_q.Tick(), behaviour_tree::Status::kSuccess);
+  no_loop.Tick();
+  EXPECT_EQ(no_loop.Tick(), Status::kFailure);
 
-  behaviour_tree::Leaf leaf_b(AlwaysRunning);
-  EXPECT_EQ(leaf_b.Tick(), behaviour_tree::Status::kRunning);
+}
 
-  behaviour_tree::Leaf leaf_c(AlwaysFailed);
-  EXPECT_EQ(leaf_c.Tick(), behaviour_tree::Status::kFailure);
+TEST(BehaviourTree, no_loop_one_child) {
 
+  bool check_conditions = false;
+  bool action_executed = false;
+  NoLoop no_loop;
+
+  no_loop.Add(std::make_unique<Leaf>([&]{return simple_action(check_conditions, action_executed);}));
+
+  EXPECT_EQ(no_loop.Tick(), Status::kFailure);
+
+  check_conditions = true;
+  EXPECT_EQ(no_loop.Tick(), Status::kRunning);
+
+  action_executed = true;
+  EXPECT_EQ(no_loop.Tick(), Status::kSuccess);
+  EXPECT_EQ(no_loop.Tick(), Status::kSuccess);
+
+}
+
+TEST(BehaviourTree, no_loop_multiple_children) {
+  FAIL() << "Fill this test";
+}
+
+TEST(BehaviourTree, selector_one_child) {
+  FAIL() << "Fill this test";
+}
+
+TEST(BehaviourTree, selector_multiple_children) {
+  FAIL() << "Fill this test";
 }
