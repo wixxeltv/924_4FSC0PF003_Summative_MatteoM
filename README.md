@@ -1,19 +1,5 @@
 # 924 4FSC0PF003 Summative
 
-### First, Make a fork
-
-1/ Click to make a fork (you will have a copy of the repo in your account)
-
-<img width="600" height=auto alt="image" src="https://github.com/user-attachments/assets/cb6d63b2-5c5c-4c94-a725-4223849d5f07" />
-
-2/ Confirm
-
-<img width="600" height=auto alt="image" src="https://github.com/user-attachments/assets/e09b8406-8e14-4b9c-ae0e-c2e5a3dadcc9" />
-
-3/ Push a commit to confirm workflow validation 
-
-[Depot du repository](https://forms.gle/AXT7o6ozhK1dqMzD7)
-
 ## Exercice 1 : Unit test
 Realisation de tests unitaires pour verifier le fonctionnement d'une API de behaviour tree.
 
@@ -37,3 +23,17 @@ Créer un systéme de gestion de textures
   - limitation de l'usage mémoire
   - lisibiité et extensivité du code
   - accés global
+
+### Repository, depot des réponses
+
+1/ Cliquez pour creer une forke (copie indépendante du repository)
+
+<img width="600" height=auto alt="image" src="https://github.com/user-attachments/assets/cb6d63b2-5c5c-4c94-a725-4223849d5f07" />
+
+2/ Confirmez
+
+<img width="600" height=auto alt="image" src="https://github.com/user-attachments/assets/e09b8406-8e14-4b9c-ae0e-c2e5a3dadcc9" />
+
+3/ Faire un premier commit et déposer l'url dans ce formulaire
+
+[Depot du repository](https://forms.gle/AXT7o6ozhK1dqMzD7)
