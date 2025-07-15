@@ -78,7 +78,7 @@ void Game::HandleEvents(){
     }
 }
 
-void Game::HandleKeyPress(sf::Keyboard::Key key){
+void Game::HandleKeyPress(const sf::Keyboard::Key key){
     switch (key) {
         case sf::Keyboard::Key::Space:
             sprite_manager_.AddSpriteAtRandomPosition();
@@ -99,7 +99,7 @@ void Game::HandleKeyPress(sf::Keyboard::Key key){
 }
 
 void Game::Update(){
-    float deltaTime = clock_.restart().asSeconds();
+    const float deltaTime = clock_.restart().asSeconds();
     sprite_manager_.Update(deltaTime);
 }
 

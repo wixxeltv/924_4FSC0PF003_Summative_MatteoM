@@ -1,4 +1,6 @@
-﻿cmake_minimum_required(VERSION 3.31)
+﻿message("Main CMake Build")
+
+cmake_minimum_required(VERSION 3.31)
 option(ENABLE_TESTING "Enable gtest" OFF)
 
 if(ENABLE_TESTING)
@@ -13,7 +15,6 @@ set(CMAKE_CXX_STANDARD 20)
 find_package(SFML COMPONENTS Graphics Window System CONFIG REQUIRED)
 
 if(ENABLE_TESTING)
-    message("Enable testing")
     enable_testing()
     find_package(GTest CONFIG REQUIRED)
 endif (ENABLE_TESTING)

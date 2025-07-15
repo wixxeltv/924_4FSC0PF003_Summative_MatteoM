@@ -7,7 +7,7 @@
 #include <random>
 #include <SFML/Graphics.hpp>
 
-GameSprite::GameSprite(sf::Vector2f pos)
+GameSprite::GameSprite(const sf::Vector2f pos)
     : position_(pos), alpha_(255.0f), is_active_(true) {
 
     gen_ = std::mt19937(rd_());
@@ -33,7 +33,7 @@ GameSprite::GameSprite(sf::Vector2f pos)
 
 }
 
-void GameSprite::Update(float deltaTime) {
+void GameSprite::Update(const float deltaTime) {
     if (!is_active_) return;
 
     // Réduction progressive de la transparence

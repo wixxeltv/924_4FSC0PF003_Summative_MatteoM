@@ -27,14 +27,14 @@ class GameSprite {
     std::uniform_real_distribution<float> scale_dist_;
 
 public:
-    GameSprite(sf::Vector2f pos);
+    explicit GameSprite(sf::Vector2f pos);
 
     void Update(float deltaTime);
     void Draw(sf::RenderWindow& window);
 
-    bool is_active() const ;
-    sf::Vector2f position() const;
-    float alpha() const;
+    [[nodiscard]] bool is_active() const ;
+    [[nodiscard]] sf::Vector2f position() const;
+    [[nodiscard]] float alpha() const;
 
 };
 

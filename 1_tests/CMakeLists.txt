@@ -1,4 +1,5 @@
-﻿
+﻿message("1_Tests CMake Build")
+
 option(ENABLE_TESTING "Enable gtest" OFF)
 
 if (ENABLE_TESTING)
@@ -15,12 +16,9 @@ target_include_directories(1_Tests PRIVATE include/)
 target_link_libraries(1_Tests PUBLIC SFML::System SFML::Graphics SFML::Window)
 
 if (ENABLE_TESTING)
-
-    message("testing enable")
-
     file(GLOB_RECURSE TEST_FILES tests/*.cc)
-    add_executable(tests ${TEST_FILES})
-    target_link_libraries(tests PRIVATE GTest::gtest GTest::gtest_main)
-
+    add_executable(1_Tests_Tests ${TEST_FILES})
+    target_include_directories(1_Tests_Tests PRIVATE include/)
+    target_link_libraries(1_Tests_Tests PRIVATE GTest::gtest GTest::gtest_main)
 endif (ENABLE_TESTING)
 

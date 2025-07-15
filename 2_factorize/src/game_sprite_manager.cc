@@ -4,7 +4,6 @@
 
 #include "game_sprite_manager.h"
 
-#include <iostream>
 #include <random>
 
 GameSpriteManager::GameSpriteManager(const sf::Vector2u winSize)
@@ -22,7 +21,7 @@ void GameSpriteManager::AddSpriteAtRandomPosition() {
         });
 }
 
-void GameSpriteManager::AddSpriteAtMouse(sf::Vector2f mousePos) {
+void GameSpriteManager::AddSpriteAtMouse(const sf::Vector2f mousePos) {
     AddSprite(mousePos);
 }
 
@@ -30,20 +29,17 @@ void GameSpriteManager::AddSprite(sf::Vector2f position) {
     sprites_.push_back(std::make_unique<GameSprite>(position));
 }
 
-void GameSpriteManager::Update(float deltaTime) {
+void GameSpriteManager::Update(const float deltaTime) {
     // Mise à jour de tous les sprites
-    for (auto& sprite : sprites_) {
+    for (const auto& sprite : sprites_) {
         sprite->Update(deltaTime);
     }
 
     // Suppression des sprites inactifs
-    sprites_.erase(
-        std::remove_if(sprites_.begin(), sprites_.end(),
+    std::erase_if(sprites_,
             [](const std::unique_ptr<GameSprite>& sprite) {
                 return !sprite->is_active();
-            }),
-        sprites_.end()
-    );
+            });
 }
 
 void GameSpriteManager::Draw(sf::RenderWindow& window) const{
