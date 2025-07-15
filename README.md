@@ -24,7 +24,7 @@ Créer un systéme de gestion de textures
   - lisibiité et extensivité du code
   - accés global
 
-### Repository, depot des réponses
+## Repository, depot des réponses
 
 1/ Cliquez pour creer une forke (copie indépendante du repository)
 
