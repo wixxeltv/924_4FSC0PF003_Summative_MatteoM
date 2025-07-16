@@ -66,13 +66,84 @@ TEST(BehaviourTree, no_loop_one_child) {
 }
 
 TEST(BehaviourTree, no_loop_multiple_children) {
-  FAIL() << "Fill this test";
+  bool check_conditions = false;
+  bool action_executed = false;
+  bool check_conditions2 = false;
+  bool action_executed2 = false;
+
+  NoLoop no_loop;
+  no_loop.Add(std::make_unique<Leaf>([&]{return simple_action(check_conditions, action_executed);}));
+  no_loop.Add(std::make_unique<Leaf>([&]{return simple_action(check_conditions2, action_executed2);}));
+
+  EXPECT_EQ(no_loop.Tick(), Status::kFailure);
+
+  check_conditions = true;
+
+  EXPECT_EQ(no_loop.Tick(), Status::kRunning);
+
+  action_executed = true;
+
+  EXPECT_EQ(no_loop.Tick(), Status::kFailure);
+
+  check_conditions = false;
+  EXPECT_EQ(no_loop.Tick(), Status::kFailure);
+
+  check_conditions2 = true;
+  EXPECT_EQ(no_loop.Tick(), Status::kRunning);
+
+  action_executed2 = true;
+
+  EXPECT_EQ(no_loop.Tick(), Status::kSuccess);
+
 }
 
 TEST(BehaviourTree, selector_one_child) {
-  FAIL() << "Fill this test";
+  bool check_conditions = false;
+  bool action_executed = false;
+  Selector selector;
+
+  selector.Add(std::make_unique<Leaf>([&]{return simple_action(check_conditions, action_executed);}));
+
+  EXPECT_EQ(selector.Tick(), Status::kFailure);
+
+  check_conditions = true;
+  EXPECT_EQ(selector.Tick(), Status::kRunning);
+
+  action_executed = true;
+  EXPECT_EQ(selector.Tick(), Status::kSuccess);
+  EXPECT_EQ(selector.Tick(), Status::kSuccess);
+
 }
 
 TEST(BehaviourTree, selector_multiple_children) {
-  FAIL() << "Fill this test";
+  bool check_conditions = false;
+  bool action_executed = false;
+  bool check_conditions2 = false;
+  bool action_executed2 = false;
+
+  Selector selector;
+  selector.Add(std::make_unique<Leaf>([&]{return simple_action(check_conditions, action_executed);}));
+  selector.Add(std::make_unique<Leaf>([&]{return simple_action(check_conditions2, action_executed2);}));
+
+  EXPECT_EQ(selector.Tick(), Status::kFailure);
+
+  check_conditions = true;
+
+  EXPECT_EQ(selector.Tick(), Status::kRunning);
+
+  action_executed = true;
+
+  EXPECT_EQ(selector.Tick(), Status::kSuccess);
+
+  check_conditions = false;
+  EXPECT_EQ(selector.Tick(), Status::kFailure);
+
+  check_conditions2 = true;
+  EXPECT_EQ(selector.Tick(), Status::kRunning);
+
+  action_executed2 = true;
+
+  EXPECT_EQ(selector.Tick(), Status::kSuccess);
+
+
 }

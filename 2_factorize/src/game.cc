@@ -1,7 +1,9 @@
 ﻿
-#include <iostream>
-#include <SFML/Graphics.hpp>
 #include "game.h"
+#include <SFML/Graphics.hpp>
+#include <iostream>
+
+#include "../asset_manager/assets.h"
 
 Game::Game() : window_(sf::VideoMode({1200, 800}), "Jeu de Sprites SFML", sf::Style::Close),
          sprite_manager_(window_.getSize()),
@@ -11,9 +13,7 @@ Game::Game() : window_(sf::VideoMode({1200, 800}), "Jeu de Sprites SFML", sf::St
     window_.setFramerateLimit(60);
 
     // Chargement de la police (optionnel - utilise la police par défaut si échec)
-    if (!font_.openFromFile("_assets/fonts/arial.ttf")) {
-        std::cout << "Police arial.ttf non trouvée, utilisation de la police par défaut" << std::endl;
-    }
+    font_ = assets::fontManager.Get("arial");
 
     std::cout << "=== JEU DE SPRITES SFML ===" << std::endl;
     std::cout << "Contrôles :" << std::endl;

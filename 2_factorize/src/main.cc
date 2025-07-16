@@ -1,9 +1,11 @@
-﻿#include <iostream>
+﻿#include "../asset_manager/assets.h"
 #include "game.h"
+#include <iostream>
 
 // Fonction principale
 int main() {
-
+    assets::textureManager.LoadAllFromFolder("_assets/splats");
+    assets::fontManager.LoadAllFromFolder("_assets/fonts");
     try {
         Game game;
         game.Run();

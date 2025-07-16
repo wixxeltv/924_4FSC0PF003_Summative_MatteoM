@@ -4,8 +4,10 @@
 
 #include "game_sprite.h"
 
-#include <random>
+#include "../asset_manager/assets.h"
+
 #include <SFML/Graphics.hpp>
+#include <random>
 
 GameSprite::GameSprite(const sf::Vector2f pos)
     : position_(pos), alpha_(255.0f), is_active_(true) {
@@ -52,7 +54,7 @@ void GameSprite::Update(const float deltaTime) {
 void GameSprite::Draw(sf::RenderWindow& window) {
     if (!is_active_) return;
 
-    const sf::Texture texture(std::format("_assets/splats/splat{:02d}.png", texture_idx_));
+    const sf::Texture texture(assets::textureManager.Get(std::format("splat{:02d}", texture_idx_)));
 
     sf::Sprite sprite(texture);
     sprite.setOrigin({static_cast<float>(texture.getSize().x) / 2.0f, static_cast<float>(texture.getSize().y) / 2.0f});
